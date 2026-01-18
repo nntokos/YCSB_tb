@@ -9,7 +9,7 @@ set -euo pipefail
 YCSB_ROOT="$HOME/Dev/tools/YCSB"
 
 # Treebeard experiment directory
-EXP_DIR="$HOME/Dev/Research/treebeard/experiments/zipf_0p8"
+EXP_DIR="$HOME/Dev/Research/treebeard/experiments/new_exp"
 
 # Output trace (Treebeard expects this exact name)
 TRACE_FILE="$EXP_DIR/trace.txt"
@@ -29,7 +29,7 @@ ZIPFUAN_CONSTANT=0.99
 THREADS=1
 
 # ORAM / Treebeard alignment
-VALUE_BYTES=160             # block payload size
+VALUE_BYTES=1024             # block payload size
 VALUE_SEED=1337
 KEY_PREFIX="user"
 
