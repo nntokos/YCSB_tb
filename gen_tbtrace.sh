@@ -6,7 +6,7 @@ set -euo pipefail
 # =======================
 
 # YCSB repo root
-YCSB_ROOT="$HOME/Dev/tools/YCSB"
+YCSB_ROOT="$HOME/Dev/tools/YCSB_tb"
 
 # Treebeard experiment directory
 EXP_DIR="$HOME/Dev/Research/treebeard/experiments/new_exp"
