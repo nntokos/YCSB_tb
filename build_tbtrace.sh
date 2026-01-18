@@ -41,7 +41,7 @@ echo "tbtrace binding not found — building YCSB..."
 # Build YCSB (including tbtrace)
 # =======================
 
-mvn -DskipTests -Dcheckstyle.skip=true clean package
+mvn -DskipTests -Dcheckstyle.skip=true -pl tbtrace -am package
 
 # =======================
 # Re-check
