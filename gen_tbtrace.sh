@@ -16,7 +16,7 @@ Arguments:
 
 Options:
   --exp-dir DIR, --output-dir DIR, -o DIR
-                 Output directory (default: $HOME/Dev/Research/treebeard/experiments/example-experiment)
+                 Output directory (default: $HOME/Dev/Research/my-treebeard/experiments/example-experiment)
   -h, --help     Show this help.
 
 Notes:
@@ -26,7 +26,7 @@ Notes:
 EOF
 }
 
-EXP_DIR_DEFAULT="$HOME/Dev/Research/treebeard/experiments/example-experiment"
+EXP_DIR_DEFAULT="$HOME/Dev/Research/my-treebeard/experiments/example-experiment"
 EXP_DIR="$EXP_DIR_DEFAULT"
 WORKLOAD=""
 
@@ -119,12 +119,6 @@ WORKLOAD_ABS="$(cd -- "$(dirname -- "$WORKLOAD")" && pwd)/$(basename -- "$WORKLO
 
 mkdir -p "$EXP_DIR"
 
-# Snapshot the workload used for this trace (reproducibility).
-TS="$(date +%Y%m%d_%H%M%S)"
-WORKLOAD_SNAPSHOT="$EXP_DIR/workload_${TS}_$(basename -- "$WORKLOAD_ABS")"
-cp -f -- "$WORKLOAD_ABS" "$WORKLOAD_SNAPSHOT"
-echo "Workload snapshot saved at: $WORKLOAD_SNAPSHOT"
-
 echo "Generating YCSB trace at: $TRACE_FILE"
 
 # Run from EXP_DIR so relative tbtrace.file (e.g. trace.txt) lands in the experiment folder.
@@ -132,6 +126,12 @@ cd "$EXP_DIR"
 
 "$YCSB_ROOT/bin/ycsb.sh" run tbtrace \
   -P "$WORKLOAD_ABS"
+
+# Snapshot the workload used for this trace (reproducibility).
+TS="$(date +%Y%m%d_%H%M%S)"
+WORKLOAD_SNAPSHOT="$EXP_DIR/workload_${TS}_$(basename -- "$WORKLOAD_ABS")"
+cp -f -- "$WORKLOAD_ABS" "$WORKLOAD_SNAPSHOT"
+echo "Workload snapshot saved at: $WORKLOAD_SNAPSHOT"
 
 # =======================
 # Post-run sanity checks
