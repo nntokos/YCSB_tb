@@ -1,0 +1,56 @@
+# TBTrace (Treebeard) trace generation workload
+#
+# This file is meant to fully define the operation stream AND TBTrace parameters.
+#
+# IMPORTANT:
+# - tbtrace.file is a relative path on purpose.
+# - Run YCSB from your experiment directory so the output lands there.
+#   Example: (cd /path/to/exp && $YCSB_ROOT/bin/ycsb.sh run tbtrace -P <this-file>)
+
+# -----------------------
+# CoreWorkload parameters
+# -----------------------
+workload=site.ycsb.workloads.CoreWorkload
+
+# Operation stream sizing
+recordcount=2000000
+operationcount=3000000
+
+# Mix (Treebeard trace grammar supports GET/SET only)
+readproportion=0.5
+updateproportion=0.5
+insertproportion=0
+scanproportion=0
+
+# Key selection distribution
+requestdistribution=zipfian
+zipfianconstant=0.99
+
+# Determinism / ordering
+threadcount=1
+
+# -----------------------
+# TBTrace binding settings
+# -----------------------
+# Output trace file name expected by Treebeard (relative to CWD)
+tbtrace.file=trace.txt
+
+# Key formatting
+# (CoreWorkload typically already emits keys like userNNN, but this keeps it stable.)
+# tbtrace.keyprefix=user
+
+# Value token generation (deterministic)
+tbtrace.value.bytes=1024
+#tbtrace.value.seed=1337
+#tbtrace.value.encoding=hex
+
+# Trace formatting
+# (upper -> GET/SET, lower -> get/set)
+tbtrace.opcase=upper
+
+# Optional: flush periodically for very large traces
+#tbtrace.flush.every=20000
+
+# Recommended for deterministic single-file ordering
+# (Still keep threadcount=1 for strict determinism.)
+tbtrace.threads.require1=true
